@@ -1,0 +1,9 @@
+*.o
+RL1/fancy
+
+# vim turds
+.*.swp
+.*.swo
+.*.swn
+.*.swm
+.*.swl
