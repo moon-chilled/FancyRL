@@ -37,6 +37,9 @@ int main(void) {
 		printf("Failed to open terminal!  Sorry...");
 		return -1;
 	}
+	terminal_set("input.cursor-blink-rate=2147483647");
+	terminal_set("input.cursor-symbol=0x2588");
+	terminal_set("font: dvsm.ttf, use-box-drawing=false, use-block-elements=false, size=12x24");
 
 	bool playing = true;
 	Being player = {'@', 0, 0};
