@@ -20,7 +20,7 @@ typedef enum {
 } Action;
 
 Action key_to_action(int code) {
-	// TODO
+	// TODO: add key rebinding
 	switch (code) {
 		case TK_H: return Movewest;
 		case TK_J: return Movesouth;

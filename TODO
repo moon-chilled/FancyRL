@@ -1,0 +1,30 @@
+- add a configuration file (toml?)
+-- keybindings
+-- video backend (ncurses, blt, others?)
+-- font
+-- (and tileset)
+
+-- in-game configuration?
+
+
+
+- add tileset support
+
+
+
+- proper polymorphism re. user and monsters
+
+-- with pointer type fuckmaging?
+--- (void* pointer that points to an instance of struct userstuff* or struct monsterstuff* in the background)
+--- this is more complicated, more annoying to think about, and more bug-prone. but it's WAYY more powerful and a bit easier to set up
+---- maybe the extra power will become necessary at some point so I should just add it
+---- but maybe unnecessary abstraction is like premature optimization
+---- only thing I can think of now is that the keybinding map has to be stored somewhere, and struct userstuff is a nice place to put it-- maybe that's reason enough to do it that way
+
+-- or just with straight function pointers?
+
+-- what it comes down to, really, how much of c++ do I want to re-implement
+
+
+
+- moar abstraction
