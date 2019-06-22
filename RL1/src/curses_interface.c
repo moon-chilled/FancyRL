@@ -6,7 +6,6 @@
 bool curses_init(void) {
 	// from the man-page: If errors occur, initscr writes an appropriate error message to standard error and exits; otherwise, a pointer is returned to stdscr
 	// so it always returns success
-	//setlocale(LC_ALL, "en_US.UTF-8");
 	initscr();
 
 	clear();
@@ -20,8 +19,8 @@ bool curses_init(void) {
 }
 
 void curses_write(u32 glyph, u32 y, u32 x, bool underline, bool bold, bool italic) {
-	u32 attrs =
-		A_UNDERLINE * underline
+	u32 attrs = 0
+		| A_UNDERLINE * underline
 		| A_BOLD * bold
 		| A_ITALIC * italic;
 
@@ -91,7 +90,7 @@ Key curses_read(void) {
 }
 
 // these functions return int, but our windowprocs functions have to return void
-// so we can't dump curses function straight into curses_windowprocs
+// so we can't dump curses functions straight into curses_windowprocs
 void curses_clear(void) { erase(); }
 void curses_blit(void) { refresh(); }
 void curses_quit(void) { endwin(); }

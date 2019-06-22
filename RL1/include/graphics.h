@@ -3,6 +3,7 @@
 
 #include "fancy.h"
 
+// TODO: finish this
 typedef enum {
 	Key_1,
 	Key_2,
@@ -72,6 +73,6 @@ typedef struct {
 } Windowprocs;
 
 extern Windowprocs curses_windowprocs;
-//extern Windowprocs blt_windowprocs;
+extern Windowprocs blt_windowprocs;
 
 #endif //GRAPHICS_H

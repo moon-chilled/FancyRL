@@ -33,16 +33,17 @@ Action key_to_action(Key code) {
 
 i32 main(void) {
 	Windowprocs procs;
-	if (true) {
+	if (false) {
 		procs = curses_windowprocs;
 	} else {
-		//procs = blt_windowprocs;
+		procs = blt_windowprocs;
 	}
 
 	if (!procs.init()) {
 		printf("Failed to open terminal!  Sorry...");
 		return -1;
 	}
+	procs.blit();
 	/*
 	terminal_set("input.cursor-blink-rate=2147483647");
 	terminal_set("input.cursor-symbol=0x2588");
