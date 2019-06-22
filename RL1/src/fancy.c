@@ -1,12 +1,10 @@
-#include <stdint.h>
-#include <stdio.h>
-#include <stdbool.h>
-
 #include <BearLibTerminal.h>
 
+#include "fancy.h"
+
 typedef struct {
-	uint32_t glyph;
-	uint32_t y, x;
+	u32 glyph;
+	u32 y, x;
 } Being;
 
 typedef enum {
@@ -19,7 +17,7 @@ typedef enum {
 	None,
 } Action;
 
-Action key_to_action(int code) {
+Action key_to_action(i32 code) {
 	// TODO: add key rebinding
 	switch (code) {
 		case TK_H: return Movewest;
@@ -32,7 +30,7 @@ Action key_to_action(int code) {
 	}
 }
 
-int main(void) {
+i32 main(void) {
 	if (!terminal_open()) {
 		printf("Failed to open terminal!  Sorry...");
 		return -1;
@@ -59,7 +57,6 @@ int main(void) {
 
 		terminal_put(player.x, player.y, player.glyph);
 
-		
 		terminal_refresh();
 	}
 

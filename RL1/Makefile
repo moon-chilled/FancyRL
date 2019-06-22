@@ -1,5 +1,5 @@
-OBJ := src/fancy.o
-CFLAGS := -g -O2 -std=c11 -Wall -Wextra -Werror
+OBJ := src/fancy.o src/pcg.o src/alloc.o
+CFLAGS := -g -O2 -std=c11 -Wall -Wextra -Werror -Iinclude
 LFLAGS := -lBearLibTerminal
 CCLD ?= $(CC)
 
