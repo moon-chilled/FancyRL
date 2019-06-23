@@ -54,25 +54,26 @@ Key blt_read(void) {
 		// combinations-- have to figure that out by peeking at shift
 		// TODO:
 		/*
-		case '!': return Key_Bang;
-		case '@': return Key_At;
-		case '#': return Key_Hash;
-		case '$': return Key_Dollar;
-		case '%': return Key_Percent;
-		case '^': return Key_Caret;
-		case '&': return Key_Ampersand;
-		case '*': return Key_Asterisk;
-		case '(': return Key_Lparen;
-		case ')': return Key_Rparen;
+		case '!': return Key_bang;
+		case '@': return Key_at;
+		case '#': return Key_hash;
+		case '$': return Key_dollar;
+		case '%': return Key_percent;
+		case '^': return Key_caret;
+		case '&': return Key_ampersand;
+		case '*': return Key_asterisk;
+		case '(': return Key_lparen;
+		case ')': return Key_rparen;
 		*/
-		case TK_MINUS: return Key_Dash;
-		//case '_': return Key_Underscore;
-		//case '+': return Key_Plus;
-		case TK_EQUALS: return Key_Equals;
-		//case '|': return Key_Pipe;
-		case TK_BACKSLASH: return Key_Backslash;
-		case TK_APOSTROPHE: return Key_Squote;
-		//case '"': return Key_Dquote;
+		case TK_MINUS: return Key_dash;
+		//case '_': return Key_underscore;
+		//case '+': return Key_plus;
+		case TK_EQUALS: return Key_equals;
+		case TK_TAB: return Key_tab;
+		//case '|': return Key_pipe;
+		case TK_BACKSLASH: return Key_backslash;
+		case TK_APOSTROPHE: return Key_squote;
+		//case '"': return Key_dquote;
 		case TK_A: return Key_a;
 		case TK_B: return Key_b;
 		case TK_C: return Key_c;
@@ -99,6 +100,28 @@ Key blt_read(void) {
 		case TK_X: return Key_x;
 		case TK_Y: return Key_y;
 		case TK_Z: return Key_z;
+		case TK_PERIOD: return Key_period;
+		case TK_COMMA: return Key_comma;
+		// Key_lessthan, greaterthan, colon, question, lbrace, rbrace
+		case TK_SEMICOLON: return Key_semicolon;
+		case TK_SLASH: return Key_slash;
+		case TK_LBRACKET: return Key_lbracket;
+		case TK_RBRACKET: return Key_rbracket;
+
+		case TK_SPACE: return Key_space;
+		case TK_RETURN: return Key_enter;
+		case TK_ESCAPE: return Key_esc;
+		//case TK_DELETE: return Key_delete;
+		case TK_BACKSPACE: return Key_backspace;
+		case TK_PAGEUP: return Key_pgup;
+		case TK_PAGEDOWN: return Key_pgdown;
+		case TK_HOME: return Key_home;
+		case TK_END: return Key_end;
+		case TK_UP: return Key_up;
+		case TK_DOWN: return Key_down;
+		case TK_LEFT: return Key_left;
+		case TK_RIGHT: return Key_right;
+
 		default: return blt_read();
 	}
 }

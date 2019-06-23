@@ -41,24 +41,25 @@ Key curses_read(void) {
 		case '8': return Key_8;
 		case '9': return Key_9;
 		case '0': return Key_0;
-		case '!': return Key_Bang;
-		case '@': return Key_At;
-		case '#': return Key_Hash;
-		case '$': return Key_Dollar;
-		case '%': return Key_Percent;
-		case '^': return Key_Caret;
-		case '&': return Key_Ampersand;
-		case '*': return Key_Asterisk;
-		case '(': return Key_Lparen;
-		case ')': return Key_Rparen;
-		case '-': return Key_Dash;
-		case '_': return Key_Underscore;
-		case '+': return Key_Plus;
-		case '=': return Key_Equals;
-		case '|': return Key_Pipe;
-		case '\\': return Key_Backslash;
-		case '\'': return Key_Squote;
-		case '"': return Key_Dquote;
+		case '!': return Key_bang;
+		case '@': return Key_at;
+		case '#': return Key_hash;
+		case '$': return Key_dollar;
+		case '%': return Key_percent;
+		case '^': return Key_caret;
+		case '&': return Key_ampersand;
+		case '*': return Key_asterisk;
+		case '(': return Key_lparen;
+		case ')': return Key_rparen;
+		case '-': return Key_dash;
+		case '_': return Key_underscore;
+		case '+': return Key_plus;
+		case '=': return Key_equals;
+		case '\t': return Key_tab;
+		case '|': return Key_pipe;
+		case '\\': return Key_backslash;
+		case '\'': return Key_squote;
+		case '"': return Key_dquote;
 		case 'a': return Key_a;
 		case 'b': return Key_b;
 		case 'c': return Key_c;
@@ -85,6 +86,32 @@ Key curses_read(void) {
 		case 'x': return Key_x;
 		case 'y': return Key_y;
 		case 'z': return Key_z;
+		case '.': return Key_period;
+		case ',': return Key_comma;
+		case '<': return Key_lessthan;
+		case '>': return Key_greaterthan;
+		case ';': return Key_semicolon;
+		case ':': return Key_colon;
+		case '[': return Key_lbracket;
+		case ']': return Key_rbracket;
+		case '{': return Key_lbrace;
+		case '}': return Key_rbrace;
+		case '/': return Key_slash;
+		case '?': return Key_question;
+
+		case ' ': return Key_space;
+		case '\n': return Key_enter;
+		case '\e': return Key_esc;
+		case '\b': case KEY_BACKSPACE: return Key_backspace;
+		case KEY_PPAGE: return Key_pgup; // (p)revious page
+		case KEY_NPAGE: return Key_pgdown; // (n)ext
+		case KEY_HOME: return Key_home;
+		case KEY_END: return Key_end;
+		case KEY_UP: return Key_up;
+		case KEY_DOWN: return Key_down;
+		case KEY_LEFT: return Key_left;
+		case KEY_RIGHT: return Key_right;
+
 		default: return curses_read();
 	}
 }
