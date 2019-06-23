@@ -101,7 +101,7 @@ Key curses_read(void) {
 
 		case ' ': return Key_space;
 		case '\n': return Key_enter;
-		case '\e': return Key_esc;
+		case '\033': return Key_esc;
 		case '\b': case KEY_BACKSPACE: return Key_backspace;
 		case KEY_PPAGE: return Key_pgup; // (p)revious page
 		case KEY_NPAGE: return Key_pgdown; // (n)ext
