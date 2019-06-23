@@ -1,0 +1,15 @@
+# currently not parsed correctly; working on it
+[Video]
+backend = "curses" #or "blt"
+
+[Keybindings]
+West = "h"
+South = "j"
+North = "k"
+East = "l"
+Northwest = "y"
+Northeast = "u"
+Southwest = "n"
+Southeast = "m"
+Quit = "q"
+Wait = "."
