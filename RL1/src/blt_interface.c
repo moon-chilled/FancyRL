@@ -11,11 +11,11 @@ bool blt_init(void) {
 
 	terminal_set("input.cursor-blink-rate=2147483647");
 	terminal_set("input.cursor-symbol=0x2588");
-	terminal_set("font: dvsm.ttf, use-box-drawing=false, use-block-elements=false, size=12x24");
-	terminal_set("default font: dvsm.ttf, use-box-drawing=false, use-block-elements=false, size=12x24");
-	terminal_set("italic font: dvsmi.ttf, use-box-drawing=false, use-block-elements=false, size=12x24");
-	terminal_set("bold font: dvsmb.ttf, use-box-drawing=false, use-block-elements=false, size=12x24");
-	terminal_set("bolditalic font: dvsmbi.ttf, use-box-drawing=false, use-block-elements=false, size=12x24");
+	terminal_set("font: assets/dvsm.ttf, use-box-drawing=false, use-block-elements=false, size=12x24");
+	terminal_set("default font: assets/dvsm.ttf, use-box-drawing=false, use-block-elements=false, size=12x24");
+	terminal_set("italic font: assets/dvsmi.ttf, use-box-drawing=false, use-block-elements=false, size=12x24");
+	terminal_set("bold font: assets/dvsmb.ttf, use-box-drawing=false, use-block-elements=false, size=12x24");
+	terminal_set("bolditalic font: assets/dvsmbi.ttf, use-box-drawing=false, use-block-elements=false, size=12x24");
 
 	return true;
 }
