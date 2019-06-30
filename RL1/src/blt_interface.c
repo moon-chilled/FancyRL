@@ -20,22 +20,26 @@ bool blt_init(void) {
 	return true;
 }
 
-void blt_write(u32 glyph, u32 y, u32 x, bool underline, bool bold, bool italic) {
+void blt_write(u32 glyph, u32 y, u32 x, u32 fgclr, u32 bgclr, bool underline, bool bold, bool italic) {
 	const char *fontab[2][2] = {{"default", "italic"}, {"bold", "bolditalic"}};
 	terminal_font(fontab[bold][italic]);
 
+	// set alpha all the way up
+	// because fuck transparency
+	terminal_color(fgclr | 0xff000000);
+	terminal_bkcolor(bgclr | 0xff000000);
+
 	terminal_put(x, y, glyph);
 
-	// underline => draw an underline character on top of it (not under it)
+	// underline => draw an underline character on top of it (not under it?)
 	if (underline) {
 		terminal_layer(1);
-		terminal_put(x, y, u'▁');
+		terminal_put(x, y, u'▁'); // TODO: maybe make that a _ instead?  _ looks somewhat better, but that tiles better
 		terminal_layer(0);
 	}
 
-	// shouldn't be necessary -- because every blt_write call overwrites
-	// the font, but just in case
-	terminal_font("default");
+	terminal_color(0);
+	terminal_bkcolor(0);
 }
 
 Key blt_read(void) {

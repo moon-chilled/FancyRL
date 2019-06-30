@@ -33,7 +33,7 @@ Action key_to_action(Key code) {
 
 i32 main(void) {
 	Windowprocs procs;
-	if (false) {
+	if (true) {
 		procs = curses_windowprocs;
 	} else {
 		procs = blt_windowprocs;
@@ -44,11 +44,7 @@ i32 main(void) {
 		return -1;
 	}
 	procs.blit();
-	/*
-	terminal_set("input.cursor-blink-rate=2147483647");
-	terminal_set("input.cursor-symbol=0x2588");
-	terminal_set("font: dvsm.ttf, use-box-drawing=false, use-block-elements=false, size=12x24");
-	*/
+	RngState rng;
 
 	bool playing = true;
 	Being player = {'@', 0, 0};
@@ -65,7 +61,7 @@ i32 main(void) {
 		}
 		procs.clear();
 
-		procs.write(player.glyph, player.y, player.x, false, false, false);
+		procs.write(player.glyph, player.y, player.x, random(&rng), random(&rng), false, false, false);
 
 		procs.blit();
 	}

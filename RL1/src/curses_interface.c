@@ -3,6 +3,8 @@
 #include "fancy.h"
 #include "graphics.h"
 
+static u32 clrs_this_frame = 0;
+
 bool curses_init(void) {
 	// from the man-page: If errors occur, initscr writes an appropriate error message to standard error and exits; otherwise, a pointer is returned to stdscr
 	// so it always returns success
@@ -18,13 +20,44 @@ bool curses_init(void) {
 	return true;
 }
 
-void curses_write(u32 glyph, u32 y, u32 x, bool underline, bool bold, bool italic) {
+
+// http://stackoverflow.com/a/41978310
+static i32 rgb_colour_to_curses_colour(u32 clr) {
+#define v2ci(v) (v < 48 ? 0 : v < 115 ? 1 : (v - 35) / 40)
+#define color_index() (36 * ir + 6 * ig + ib)
+#define dist_square(A,B,C, a,b,c) ((A-a)*(A-a) + (B-b)*(B-b) + (C-c)*(C-c))
+	u8 r = (clr & 0xff0000) >> 16;
+	u8 g = (clr & 0x00ff00) >> 8;
+	u8 b = (clr & 0x0000ff) >> 0;
+
+	static const i32 i2cv[6] = {0, 0x5f, 0x87, 0xaf, 0xd7, 0xff};
+
+	i32 ir = v2ci(r), ig = v2ci(g), ib = v2ci(b);
+
+	i32 average = (r + g + b) / 3;
+	i32 gray_index = average > 238 ? 23 : (average - 3) / 10;
+
+	i32 cr = i2cv[ir], cg = i2cv[ig], cb = i2cv[ib];
+	i32 gv = 8 + 10 * gray_index;
+
+	i32 color_err = dist_square(cr, cg, cb, r, g, b);
+	i32 gray_err  = dist_square(gv, gv, gv, r, g, b);
+
+	return color_err <= gray_err ? 16 + color_index() : 232 + gray_index;
+#undef v2ci
+#undef color_index
+#undef dist_square
+}
+
+void curses_write(u32 glyph, u32 y, u32 x, u32 fg, u32 bg, bool underline, bool bold, bool italic) {
 	u32 attrs = 0
 		| A_UNDERLINE * underline
 		| A_BOLD * bold
 		| A_ITALIC * italic;
 
 	attron(attrs);
+	// TODO: better colour handling
+	attron(COLOR_PAIR((init_pair(++clrs_this_frame, rgb_colour_to_curses_colour(fg), rgb_colour_to_curses_colour(bg)), clrs_this_frame)));
 
 	mvaddch(y, x, glyph);
 }
@@ -118,7 +151,7 @@ Key curses_read(void) {
 
 // these functions return int, but our windowprocs functions have to return void
 // so we can't dump curses functions straight into curses_windowprocs
-void curses_clear(void) { erase(); }
+void curses_clear(void) { clrs_this_frame = 0; erase(); }
 void curses_blit(void) { refresh(); }
 void curses_quit(void) { endwin(); }
 

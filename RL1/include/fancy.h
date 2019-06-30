@@ -8,7 +8,6 @@
 #include <stdio.h>
 
 #include <assert.h>
-//@portability: this is needed on windows for some reason, idk why
 #ifndef static_assert
 # define static_assert _Static_assert
 #endif

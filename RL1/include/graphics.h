@@ -90,8 +90,7 @@ typedef enum {
 
 typedef struct {
 	bool (*init)(void); // returns success
-	// TODO: colour
-	void (*write)(u32 glyph, u32 y, u32 x, bool underline, bool bold, bool italic);
+	void (*write)(u32 glyph, u32 y, u32 x, u32 fgclr, u32 bgclr, bool underline, bool bold, bool italic);
 	Key (*read)(void);
 	void (*clear)(void);
 	void (*blit)(void);
