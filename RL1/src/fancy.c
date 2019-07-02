@@ -69,7 +69,7 @@ i32 main(void) {
 	Map map = new_map(25, 80);
 	for (usz y = 0; y < 25; y++) {
 		for (usz x = 0; x < 80; x++) {
-			if (rnb(2)) {
+			if (rnb(3)) {
 				map.tiles[y][x] = tile_specs[Tile_Space];
 			} else {
 				map.tiles[y][x] = tile_specs[Tile_Rock];
@@ -78,17 +78,6 @@ i32 main(void) {
 	}
 
 	while (playing) {
-		procs.clear();
-
-		/// input/processing
-		for (usz i = 0; i < beings.num_beings; i++) {
-			if (beings.beings[i].type == Being_User) {
-				apply_action(&beings.beings[i], key_to_action(procs.read()));
-			} else {
-				apply_action(&beings.beings[i], do_ai());
-			}
-		}
-
 		///drawing
 		//terrain
 		for (usz y = 0; y < 25; y++) {
@@ -106,6 +95,16 @@ i32 main(void) {
 		procs.blit();
 
 
+		procs.clear();
+
+		/// input/processing
+		for (usz i = 0; i < beings.num_beings; i++) {
+			if (beings.beings[i].type == Being_User) {
+				apply_action(&beings.beings[i], key_to_action(procs.read()));
+			} else {
+				apply_action(&beings.beings[i], do_ai());
+			}
+		}
 	}
 
 
