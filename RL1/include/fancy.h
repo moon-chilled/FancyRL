@@ -70,17 +70,23 @@ void *alloc(usz sz);
 
 
 //*randomness*
-typedef struct {
-	u128 state, inc;
-} RngState;
-
-u64 random(RngState *state);
-u64 rnb(RngState *state, u64 bound);
-void seed_random(RngState *state, u128 initstate, u128 initseq);
+u64 random(void);
+u64 rnb(u64 bound);
+void seed_random(u128 initstate, u128 initseq);
 // [min, max)
 // function because if it were a macro, then 'min' would appear twice, and its side effects—if any—would occur twice
-inline u64 rnr(RngState *state, u64 min, u64 max) {
-	return rnb(state, max - min) + min;
+inline u64 rnr(u64 min, u64 max) {
+	return rnb(max - min) + min;
 }
+
+typedef enum {
+	Act_Movenorth,
+	Act_Movesouth,
+	Act_Moveeast,
+	Act_Movewest,
+	Act_Quit,
+	Act_Wait,
+	Act_None,
+} Action;
 
 #endif //FANCY_H
