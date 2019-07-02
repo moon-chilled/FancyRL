@@ -82,7 +82,7 @@ i32 main(void) {
 		//terrain
 		for (usz y = 0; y < 25; y++) {
 			for (usz x = 0; x < 80; x++) {
-				procs.write(map.tiles[y][x].glyph, y, x, 0xffffff, map.tiles[y][x].blocks_light * 0xcccc00, map.tiles[y][x].blocks_traversal, false, false);
+				procs.write(map.tiles[y][x].glyph, y, x, 0xaaaaaa, map.tiles[y][x].blocks_light * 0x774400, map.tiles[y][x].blocks_traversal, false, false);
 			}
 		}
 
