@@ -1,3 +1,4 @@
+#include "fancy.h"
 #include "being.h"
 
 Being new_user(BeingSpecType spec) {

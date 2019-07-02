@@ -1,8 +1,6 @@
 #ifndef BEING_H
 #define BEING_H
 
-#include "fancy.h"
-
 typedef enum {
 	Being_User,
 	Being_Monster,

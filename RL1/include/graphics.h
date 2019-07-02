@@ -1,8 +1,6 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include "fancy.h"
-
 typedef enum {
 	Key_1,
 	Key_2,

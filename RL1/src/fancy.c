@@ -4,6 +4,7 @@
 
 #include "being.h"
 #include "graphics.h"
+#include "tile.h"
 
 
 static bool playing = true;
@@ -65,9 +66,21 @@ i32 main(void) {
 	beings.beings[1] = new_mon(BeingSpec_Orc);
 	beings.beings[1].base.x = beings.beings[1].base.y = 8;
 
+	Map map = new_map(25, 80);
+	for (usz y = 0; y < 25; y++) {
+		for (usz x = 0; x < 80; x++) {
+			if (rnb(2)) {
+				map.tiles[y][x] = tile_specs[Tile_Space];
+			} else {
+				map.tiles[y][x] = tile_specs[Tile_Rock];
+			}
+		}
+	}
+
 	while (playing) {
 		procs.clear();
 
+		/// input/processing
 		for (usz i = 0; i < beings.num_beings; i++) {
 			if (beings.beings[i].type == Being_User) {
 				apply_action(&beings.beings[i], key_to_action(procs.read()));
@@ -76,6 +89,15 @@ i32 main(void) {
 			}
 		}
 
+		///drawing
+		//terrain
+		for (usz y = 0; y < 25; y++) {
+			for (usz x = 0; x < 80; x++) {
+				procs.write(map.tiles[y][x].glyph, y, x, 0xffffff, map.tiles[y][x].blocks_light * 0xcccc00, map.tiles[y][x].blocks_traversal, false, false);
+			}
+		}
+
+		//beings
 		for (usz i = 0; i < beings.num_beings; i++) {
 			Being b = beings.beings[i];
 			procs.write(b.base.glyph, b.base.y, b.base.x, b.base.fg, b.base.bg, false, false, false);
