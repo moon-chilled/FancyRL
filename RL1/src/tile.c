@@ -2,14 +2,13 @@
 #include "tile.h"
 
 Map new_map(u32 height, u32 width) {
-
 	Map ret;
 	ret.width = width;
 	ret.height = height;
 
-	ret.tiles = alloc(sizeof(Tile*) * height);
+	ret.tiles = new(Tile*, height);
 	for (usz i = 0; i < height; i++) {
-		ret.tiles[i] = alloc(sizeof(Tile) * width);
+		ret.tiles[i] = new(Tile, width);
 	}
 
 	return ret;

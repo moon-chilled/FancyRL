@@ -57,7 +57,7 @@ i32 main(void) {
 		Being *beings;
 		usz num_beings;
 	} beings = {
-		.beings = alloc(sizeof(Being) * 2),
+		.beings = new(Being, 2),
 		.num_beings = 2,
 	};
 

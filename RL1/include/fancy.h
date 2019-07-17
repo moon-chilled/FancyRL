@@ -66,6 +66,16 @@ typedef ssize_t isz;
 void *alloc(usz sz);
 #define malloc(...) malloc(__VA_ARGS__),static_assert(false, "Can't use malloc")
 #define calloc(...) calloc(__VA_ARGS__),static_assert(false, "Can't use calloc")
+
+// The following is magic.  Please disregard it.
+// Essentially, it says #define new(T, amnt = 1) alloc(sizeof(T), amnt)
+// Credit to some c wiki, I forget which
+#define _newtype(typ, amnt) alloc(sizeof(typ) * (amnt))
+#define _newtype_f1(...) _newtype(__VA_ARGS__, 1)
+#define _newtype_f2(...) _newtype(__VA_ARGS__)
+#define _newtype_fx(_1, _2, n, ...) n
+#define new(...) _newtype_fx(__VA_ARGS__, _newtype_f2(__VA_ARGS__), _newtype_f1(__VA_ARGS__), 0)
+
 /// END replacements for standard c constructs and functions }
 
 

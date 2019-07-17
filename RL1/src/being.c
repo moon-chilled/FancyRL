@@ -12,7 +12,7 @@ Being new_user(BeingSpecType spec) {
 	ret.base.bg = ret.base.spec.bg;
 	ret.base.hp = ret.base.maxhp = ret.base.spec.maxhp;
 
-	ret.user = alloc(sizeof(UserBeing));
+	ret.user = new(UserBeing);
 
 	return *cast(Being*)&ret;
 }
@@ -27,7 +27,7 @@ Being new_mon(BeingSpecType spec) {
 	ret.base.bg = ret.base.spec.bg;
 	ret.base.hp = ret.base.maxhp = ret.base.spec.maxhp;
 
-	ret.mon = alloc(sizeof(MonBeing));
+	ret.mon = new(MonBeing);
 
 	return *cast(Being*)&ret;
 }
@@ -44,6 +44,6 @@ void delete_being(Being b) {
 }
 
 BeingSpec being_specs[_BeingSpec_last] = {
-	[BeingSpec_DefaultUser] = {"user", '@', 0xffffff, 0x000000, 100},
+	[BeingSpec_DefaultUser] = {"user", '@', 0x000000, 0xffffff, 100},
 	[BeingSpec_Orc] = {"bob", 'o', 0xff0000, 0x000000, 20},
 };
