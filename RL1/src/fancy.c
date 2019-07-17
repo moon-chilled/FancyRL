@@ -15,6 +15,10 @@ void apply_action(Being *b, Action act) {
 		case Act_Movesouth: b->base.y++; break;
 		case Act_Moveeast: b->base.x++; break;
 		case Act_Movewest: b->base.x--; break;
+		case Act_Movenorthwest: b->base.x--; b->base.y--; break;
+		case Act_Movenortheast: b->base.x++; b->base.y--; break;
+		case Act_Movesouthwest: b->base.x--; b->base.y++; break;
+		case Act_Movesoutheast: b->base.x++; b->base.y++; break;
 		case Act_Quit: playing = false; break;
 		case Act_Wait: break;
 		case Act_None: break;
@@ -28,8 +32,12 @@ Action key_to_action(Key code) {
 		case Key_j: return Act_Movesouth;
 		case Key_k: return Act_Movenorth;
 		case Key_l: return Act_Moveeast;
+		case Key_y: return Act_Movenorthwest;
+		case Key_u: return Act_Movenortheast;
+		case Key_b: return Act_Movesouthwest;
+		case Key_n: return Act_Movesoutheast;
 		case Key_q: return Act_Quit;
-		//case _PERIOD: return Act_Wait;
+		case Key_period: return Act_Wait;
 		default: return Act_None;
 	}
 }
