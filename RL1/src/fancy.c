@@ -1,5 +1,7 @@
 #include <unistd.h>
 
+#include "optfetch.h"
+
 #include "fancy.h"
 
 #include "being.h"
@@ -101,12 +103,19 @@ void refresh(Windowprocs procs, Beings beings, Map map) {
 }
 
 
-i32 main(void) {
+i32 main(i32 argc, char **argv) {
 	Windowprocs procs;
-	if (1) {
+
+	const char *windowproc_name = "bearlibterminal";
+	struct opttype cmd_opts[] = {{"video-backend", 'v', OPTTYPE_STRING, &windowproc_name}, {0}};
+	fetchopts(&argc, &argv, cmd_opts);
+	if (!strcmp(windowproc_name, "bearlibterminal")) {
+		procs = blt_windowprocs;
+	} else if (!strcmp(windowproc_name, "curses")) {
 		procs = curses_windowprocs;
 	} else {
-		procs = blt_windowprocs;
+		printf("Unrecognized video backend '%s'.  Options are 'bearlibterminal' and 'curses'\n", windowproc_name);
+		return 1;
 	}
 
 	seed_random(cast(u128)cast(usz)&seed_random, getpid());

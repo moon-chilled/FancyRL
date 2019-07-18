@@ -1,0 +1,3 @@
+[submodule "RL1/optfetch"]
+	path = RL1/optfetch
+	url = https://github.com/Elronnd/optfetch
