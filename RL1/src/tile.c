@@ -13,6 +13,10 @@ Map new_map(u32 height, u32 width) {
 
 	return ret;
 }
+void delete_map(Map map) {
+	for (usz i = 0; i < map.height; i++) free(map.tiles[i]);
+	free(map.tiles);
+}
 
 Tile tile_specs[_Tile_max] = {
 	[Tile_Space] = {u' ', false, false},

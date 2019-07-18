@@ -1,16 +1,25 @@
 #include "fancy.h"
 #include "being.h"
 
+static BeingBase base_from_spectype(BeingSpecType spec) {
+	BeingBase ret = {0};
+
+	ret.spec = being_specs[spec];
+
+	ret.name = ret.spec.name;
+	ret.glyph = ret.spec.glyph;
+	ret.fg = ret.spec.fg;
+	ret.bg = ret.spec.bg;
+	ret.speed = ret.spec.speed;
+	ret.hp = ret.maxhp = ret.spec.maxhp;
+
+	return ret;
+}
+
 Being new_user(BeingSpecType spec) {
 	UBeing ret = {0};
 	ret.type = Being_User;
-	ret.base.spec = being_specs[spec];
-
-	ret.base.name = ret.base.spec.name;
-	ret.base.glyph = ret.base.spec.glyph;
-	ret.base.fg = ret.base.spec.fg;
-	ret.base.bg = ret.base.spec.bg;
-	ret.base.hp = ret.base.maxhp = ret.base.spec.maxhp;
+	ret.base = base_from_spectype(spec);
 
 	ret.user = new(UserBeing);
 
@@ -19,13 +28,7 @@ Being new_user(BeingSpecType spec) {
 Being new_mon(BeingSpecType spec) {
 	MBeing ret = {0};
 	ret.type = Being_Monster;
-	ret.base.spec = being_specs[spec];
-
-	ret.base.name = ret.base.spec.name;
-	ret.base.glyph = ret.base.spec.glyph;
-	ret.base.fg = ret.base.spec.fg;
-	ret.base.bg = ret.base.spec.bg;
-	ret.base.hp = ret.base.maxhp = ret.base.spec.maxhp;
+	ret.base = base_from_spectype(spec);
 
 	ret.mon = new(MonBeing);
 
@@ -44,6 +47,6 @@ void delete_being(Being b) {
 }
 
 BeingSpec being_specs[_BeingSpec_last] = {
-	[BeingSpec_DefaultUser] = {"user", '@', 0x000000, 0xffffff, 100},
-	[BeingSpec_Orc] = {"bob", 'o', 0xff0000, 0x000000, 20},
+	[BeingSpec_DefaultUser] = {"user", '@', 0x000000, 0xffffff, 100, 10},
+	[BeingSpec_Orc] = {"bob", 'o', 0xff0000, 0x000000, 20, 8},
 };

@@ -19,6 +19,7 @@ typedef struct {
 } Map;
 
 extern Map new_map(u32 height, u32 width);
+extern void delete_map(Map map);
 extern Tile tile_specs[_Tile_max];
 
 #endif //TILE_H

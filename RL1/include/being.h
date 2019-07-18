@@ -23,6 +23,7 @@ typedef struct {
 	u32 glyph;
 	u32 fg, bg;
 	u32 maxhp;
+	u32 speed;
 } BeingSpec;
 typedef struct {
 	// spec specifies default behaviour for a being.  However, those
@@ -33,6 +34,8 @@ typedef struct {
 	u32 glyph;
 	u32 fg, bg;
 	u32 hp, maxhp;
+	u32 speed;
+	i32 energy;
 	u32 y, x;
 } BeingBase;
 
