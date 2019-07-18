@@ -103,7 +103,7 @@ void refresh(Windowprocs procs, Beings beings, Map map) {
 
 i32 main(void) {
 	Windowprocs procs;
-	if (0) {
+	if (1) {
 		procs = curses_windowprocs;
 	} else {
 		procs = blt_windowprocs;

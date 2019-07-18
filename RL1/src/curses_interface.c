@@ -3,8 +3,6 @@
 #include "fancy.h"
 #include "graphics.h"
 
-static u32 clrs_this_frame = 0;
-
 bool curses_init(void) {
 	// from the man-page: If errors occur, initscr writes an appropriate error message to standard error and exits; otherwise, a pointer is returned to stdscr
 	// so it always returns success
@@ -50,6 +48,13 @@ static i32 rgb_colour_to_curses_colour(u32 clr) {
 }
 
 void curses_write(u32 glyph, u32 y, u32 x, u32 fg, u32 bg, bool underline, bool bold, bool italic) {
+	typedef struct {
+		u32 fg;
+		u32 bg;
+	} CursesClr;
+	static CursesClr *curses_colours;
+	static usz num_curses_colours;
+
 	u32 attrs = 0
 		| A_UNDERLINE * underline
 		| A_BOLD * bold
@@ -57,9 +62,30 @@ void curses_write(u32 glyph, u32 y, u32 x, u32 fg, u32 bg, bool underline, bool 
 
 	attron(attrs);
 	// TODO: better colour handling
-	attron(COLOR_PAIR((init_pair(++clrs_this_frame, rgb_colour_to_curses_colour(fg), rgb_colour_to_curses_colour(bg)), clrs_this_frame)));
+
+	usz colour_index;
+
+	bool colour_pair_in_table = false;
+	for (usz i = 0; i < num_curses_colours; i++) {
+		if (curses_colours[i].fg == fg && curses_colours[i].bg == bg) {
+			colour_pair_in_table = true;
+			colour_index = i;
+			break;
+		}
+	}
+	if (!colour_pair_in_table) {
+		colour_index = num_curses_colours;
+		curses_colours = realloc(curses_colours, sizeof(CursesClr) * (++num_curses_colours));
+		curses_colours[colour_index] = (CursesClr){fg, bg};
+		init_pair(colour_index, rgb_colour_to_curses_colour(fg), rgb_colour_to_curses_colour(bg));
+	}
+
+
+	attron(COLOR_PAIR(colour_index));
 
 	mvaddch(y, x, glyph);
+	attroff(attrs);
+	attroff(COLOR_PAIR(colour_index));
 }
 
 Key curses_read(void) {
@@ -151,16 +177,16 @@ Key curses_read(void) {
 
 // these functions return int, but our windowprocs functions have to return void
 // so we can't dump curses functions straight into curses_windowprocs
-void curses_clear(void) { clrs_this_frame = 0; erase(); }
 void curses_blit(void) { refresh(); }
 void curses_quit(void) { endwin(); }
+void nop() {}
 
 
 Windowprocs curses_windowprocs = {
 	.init = curses_init,
 	.write = curses_write,
 	.read = curses_read,
-	.clear = curses_clear,
+	.clear = nop,
 	.blit = curses_blit,
 	.quit = curses_quit,
 };
